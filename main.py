@@ -69,7 +69,7 @@ def main(timeout: int):
                     logging.critical("!!! CHANGE DETECTED !!!")
                     logging.critical(
                         f"The following lines were changed on {label!r}:\n"
-                        "\n".join(changed_lines)
+                        + ("\n".join(changed_lines))
                     )
 
             responses[label] = new_content
