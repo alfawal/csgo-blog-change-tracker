@@ -19,7 +19,7 @@ def main(
     print_log: bool,
     print_log_level: int | str,
 ):
-    print("Running CSGO Blog Changes Tracker... (Press Ctrl+C to stop)")
+    print("Running CS:GO Blog Changes Tracker... (Press Ctrl+C to stop)")
     now_capture = datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
     logging_format = "%(asctime)s [%(levelname)s]: %(message)s"
 
@@ -97,7 +97,7 @@ if __name__ == "__main__":
 
     if "--help" in args or "-h" in args:
         print(
-            "CSGO Blog Changes Tracker by @alfawal\n"
+            "CS:GO Blog Changes Tracker by @alfawal\n"
             "Usage: python csgo_blog_changes_tracker.py [options]\n"
             "Options:\n"
             "  --timeout <seconds> - The amount of seconds to wait between"
@@ -120,5 +120,5 @@ if __name__ == "__main__":
             else logging.INFO,
         )
     except KeyboardInterrupt:
-        print("Stopping CSGO Blog Changes Tracker...")
+        print("Stopping CS:GO Blog Changes Tracker...")
         raise SystemExit

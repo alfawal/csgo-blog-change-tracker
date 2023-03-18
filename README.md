@@ -1,6 +1,12 @@
-# CSGO Blog Changes Tracker
+# CS:GO Blog Changes Tracker
 
-This simple Python script tracks changes on the [Counter-Strike: Global Offensive (CSGO) blog](https://blog.counter-strike.net/) and alerts you when new change are occurred to it's HTML.
+![Heading for the Source](https://i.imgur.com/XapY1BW.png)
+
+This simple Python script tracks changes on the [Counter-Strike: Global Offensive (CS:GO) blog](https://blog.counter-strike.net/) and alerts you when new change are occurred to it's HTML.
+
+## Why?
+
+This script is pretty useful for the gigachad players who want to know when the any tiny tweaks about the source 2.
 
 ## Prerequisites
 
@@ -29,7 +35,7 @@ This will run the script with a timeout of 10 seconds between checks, print the 
 
 ## Output
 
-When a change is detected, the script will print a message to the console (if `--print-log` was given) and log file indicating which lines were changed on the CSGO blog. The log file is saved in the same directory as the script with a filename in the format `changes-YYYY-MM-DD-HH-MM-SS.log`.
+When a change is detected, the script will print a message to the console (if `--print-log` was given) and log file indicating which lines were changed on the CS:GO blog. The log file is saved in the same directory as the script with a filename in the format `changes-YYYY-MM-DD-HH-MM-SS.log`.
 
 ## Disclaimer
 
