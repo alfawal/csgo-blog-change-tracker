@@ -30,18 +30,9 @@ CSGO_BLOG_URLS = {
 }
 
 
-# def get_storage():
-#     return dict(capture_one=None, capture_two=None)
-
-
 def main(timeout: int):
     session = requests.Session()
-    responses = defaultdict(
-        lambda: dict(
-            capture_one=None,
-            capture_two=None,
-        )
-    )
+    responses = {label: None for label in CSGO_BLOG_URLS}
     check_counter = count(1)
     differ = difflib.Differ()
 
@@ -59,37 +50,29 @@ def main(timeout: int):
                 )
                 continue
 
-            cap_one = responses[label]["capture_one"]
-            cap_two = responses[label]["capture_two"]
-            if not cap_one and not cap_two:
-                responses[label]["capture_one"] = res.content
-                responses[label]["capture_two"] = res.content
+            if not responses[label]:
+                responses[label] = res.content
                 continue
 
-            if cap_one == cap_two:
-                responses[label]["capture_one"] = cap_two
-                responses[label]["capture_two"] = res.content
-
-            if (cap_one := responses[label]["capture_one"]) != (
-                cap_two := responses[label]["capture_two"]
-            ):
+            if (old_content := responses[label]) != (new_content := res.content):
                 diff = differ.compare(
-                    cap_one.decode("utf-8").splitlines(),
-                    cap_two.decode("utf-8").splitlines(),
+                    old_content.decode("utf-8").splitlines(),
+                    new_content.decode("utf-8").splitlines(),
                 )
 
                 if changed_lines := tuple(
                     line
                     for line in diff
-                    if "seconds" not in line
-                    and line.startswith("+")
-                    or line.startswith("-")
+                    if "seconds" not in line.lower()
+                    and (line.startswith("+") or line.startswith("-"))
                 ):
                     logging.critical("!!! CHANGE DETECTED !!!")
                     logging.critical(
                         f"The following lines were changed on {label!r}:\n"
                         "\n".join(changed_lines)
                     )
+
+            responses[label] = new_content
 
         logging.info(f"Check #{check_no} complete.")
         time.sleep(timeout)
