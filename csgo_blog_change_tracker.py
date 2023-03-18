@@ -69,7 +69,15 @@ def main(
                 if changed_lines := tuple(
                     line
                     for line in diff
-                    if "seconds" not in line.lower()
+                    if all(
+                        word not in line.lower()
+                        # Ignore diff lines that contain these words
+                        for word in (
+                            "seconds",
+                            "<!--",
+                            "-->",
+                        )
+                    )
                     and (line.startswith("+") or line.startswith("-"))
                 ):
                     logging.critical("!!! CHANGE DETECTED !!!")
